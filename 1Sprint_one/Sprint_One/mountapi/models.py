@@ -1,6 +1,12 @@
 from django.db import models
 
 
+class User(models.Model):
+   email = models.EmailField()
+   phone = models.CharField(max_length=15)
+   name = models.CharField(max_length=30)
+   fam = models.CharField(max_length=30)
+   otc = models.CharField(max_length=30)
 
 class MountainPass(models.Model):
    beauty_title = models.CharField(max_length=255)
@@ -8,7 +14,7 @@ class MountainPass(models.Model):
    other_titles = models.CharField(max_length=255)
    connect = models.TextField(blank=True)
    add_time = models.DateTimeField()
-   user = models.JSONField(default=dict)
+   user = models.ForeignKey('User', on_delete=models.CASCADE)
    coord = models.JSONField(default=dict)
    level = models.JSONField(default=dict)
 
