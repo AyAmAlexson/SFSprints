@@ -1,10 +1,12 @@
 from .models import MountainPass, Image
-
+from rest_framework.request import Request as DRFRequest
+from .serializers import MountainPassSerializer
 
 class MountainPassManager:
     @staticmethod
-    def submit_data(data):
+    def submit_data(data, request=None):
         try:
+            # Ваш код для добавления данных в базу
             pass_instance = MountainPass.objects.create(
                 beauty_title=data["beauty_title"],
                 title=data["title"],
@@ -22,6 +24,14 @@ class MountainPassManager:
                     data=image_data["data"],
                     title=image_data["title"]
                 )
+
+            # Передайте запрос в контексте при создании экземпляра сериализатора
+            if request and isinstance(request, DRFRequest):
+                context = {'request': request}
+            else:
+                context = {}
+
+            serializer = MountainPassSerializer(pass_instance, context=context)
 
             return {"status": 200, "message": "Отправлено успешно", "id": pass_instance.id}
 

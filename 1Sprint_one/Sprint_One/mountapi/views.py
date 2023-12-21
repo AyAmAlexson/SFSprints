@@ -9,11 +9,9 @@ from .models import *
 class SubmitDataView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
-        result = MountainPassManager.submit_data(data)
+        result = MountainPassManager.submit_data(data, request)
 
         if result["status"] == 200:
-            pass_instance = MountainPass.objects.get(id=result["id"])
-            serializer = MountainPassSerializer(pass_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(result, status=status.HTTP_200_OK)
 
-        return Response({"message": result["message"]}, status=result["status"])
+        return Response(result, status=result["status"])
