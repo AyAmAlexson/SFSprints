@@ -78,11 +78,14 @@ WSGI_APPLICATION = 'Sprint_One.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mountainpass',
+        'USER': env('FSTR_DB_LOGIN'),
+        'PASSWORD': env('FSTR_DB_PASS'),
+        'HOST': env('FSTR_DB_HOST'),
+        'PORT': env('FSTR_DB_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
