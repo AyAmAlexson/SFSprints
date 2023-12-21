@@ -3,7 +3,6 @@ from django.db import models
 
 
 class MountainPass(models.Model):
-   author = models.ForeignKey('User', on_delete=models.CASCADE)
    beauty_title = models.CharField(max_length=255)
    title = models.CharField(max_length=255)
    other_titles = models.CharField(max_length=255)
@@ -15,5 +14,5 @@ class MountainPass(models.Model):
 
 class Image(models.Model):
    mountain_pass = models.ForeignKey(MountainPass, related_name='images', on_delete=models.CASCADE)
-   data = models.ImageField()
+   data = models.ImageField(upload_to='pass_image/')
    title = models.CharField(max_length=255)
