@@ -2,7 +2,7 @@
 from pathlib import Path
 import environ
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,17 +76,11 @@ WSGI_APPLICATION = 'Sprint_One.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mountainpass',
-        'USER': env('FSTR_DB_LOGIN'),
-        'PASSWORD': env('FSTR_DB_PASS'),
-        'HOST': env('FSTR_DB_HOST'),
-        'PORT': env('FSTR_DB_PORT'),
-    }
-}
 
+DATABASE_URL = env('DATABASE_URL')
+db_from_env = dj_database_url.config(default=DATABASE_URL)
+DATABASES = {'default': db_from_env}
+CONN_MAX_AGE = int(os.environ.get("CONN_MAX_AGE", 600))
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
