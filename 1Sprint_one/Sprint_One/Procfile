@@ -1,0 +1,1 @@
+web: gunicorn Sprint_One.wsgi
