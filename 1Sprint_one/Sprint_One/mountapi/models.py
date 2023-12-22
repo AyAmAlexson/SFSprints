@@ -17,6 +17,8 @@ class MountainPass(models.Model):
    user = models.ForeignKey('User', on_delete=models.CASCADE)
    coord = models.JSONField(default=dict)
    level = models.JSONField(default=dict)
+   status_choices = [('new', 'New'), ('approved', 'Approved'), ('rejected', 'Rejected')]
+   status = models.CharField(max_length=10, choices=status_choices, default='new')
 
 class Image(models.Model):
    mountain_pass = models.ForeignKey(MountainPass, related_name='images', on_delete=models.CASCADE)
